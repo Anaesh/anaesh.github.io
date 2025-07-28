@@ -1,0 +1,24 @@
+---
+// src/components/TimelineItem.astro
+// Props for the component
+interface Props {
+  date: string;
+  title: string;
+  subtitle?: string;
+  content: string; // Can contain HTML for lists, etc.
+  techStack?: string;
+}
+
+const { date, title, subtitle, content, techStack } = Astro.props as Props;
+---
+<div class="timeline-item fade-in-up">
+  <div class="timeline-marker"></div>
+  <div class="timeline-content bg-card">
+    <span class="timeline-date">{date}</span>
+    <h4 class="text-accent">{title}</h4>
+    {subtitle && <h5>{subtitle}</h5>}
+    <!-- Use `set:html` to render HTML content passed as a prop -->
+    <div set:html={content}></div>
+    {techStack && <span class="tech-stack-sm"><strong>Tech stacks:</strong> {techStack}</span>}
+  </div>
+</div>

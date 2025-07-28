@@ -1,0 +1,10 @@
+---
+// src/components/SkillCard.astro
+const { name, iconClass } = Astro.props;
+---
+<div class="col-4 col-sm-3 col-md-4 skill-item fade-in-up">
+  <div class="bg-card p-3 text-center">
+    <i class={`skill-icon ${iconClass}`}></i>
+    <div class="skill-name">{name}</div>
+  </div>
+</div>
