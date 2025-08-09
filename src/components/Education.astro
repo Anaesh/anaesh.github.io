@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+
+// Get all education entries and sort by date
+const educationEntries = await getCollection('education');
+const sortedEducation = educationEntries.sort((a, b) => {
+  // Simple sorting by comparing the start years
+  const yearA = parseInt(a.data.date.split(' ')[0]);
+  const yearB = parseInt(b.data.date.split(' ')[0]);
+  return yearB - yearA; // Most recent first
+});
+---
+
+<section id="education" class="section">
+  <div class="container">
+    <h2 class="section-title">Education</h2>
+    <div class="education-timeline">
+      {sortedEducation.map((entry) => (
+        <div class="education-item fade-in-up" itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
+          <div class="education-marker"></div>
+          <div class="education-content bg-card">
+            <span class="education-date" itemprop="dateCreated">{entry.data.date}</span>
+            <h5 class="text-accent" itemprop="credentialCategory">{entry.data.degree}</h5>
+            <p itemprop="recognizedBy">{entry.data.institution}</p>
+            <span class="score" itemprop="credentialValue">{entry.data.score}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

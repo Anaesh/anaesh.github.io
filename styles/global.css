@@ -1,0 +1,906 @@
+/* styles/global.css */
+
+/* --- Theme Variables --- */
+:root {
+  /* Dark theme (default) */
+  --primary-color: #3b82f6; /* A brighter blue */
+  --accent-color: #ec4899; /* violet-500 / purple accent */
+  --dark-bg: #020617; /* Very dark background */
+  --card-bg: #1e293b; /* slate-800 */
+  --text-primary: #f8fafc; /* slate-50 - Main text */
+  --text-secondary: #e2e8f0; /* slate-200 - Secondary text */
+  --text-muted: #94a3b8; /* slate-400 - Muted text */
+  --border-color: rgba(148, 163, 184, 0.2); /* slate-400 with opacity */
+}
+
+/* Light theme */
+:root.light {
+  --primary-color: #3b82f6; /* A brighter blue */
+  --accent-color: #ec4899; /* violet-500 / purple accent */
+  --dark-bg: #f1f5f9; /* slate-100 - Light background */
+  --card-bg: #ffffff; /* white cards */
+  --text-primary: #0f172a; /* slate-900 - Main text */
+  --text-secondary: #334155; /* slate-700 - Secondary text */
+  --text-muted: #64748b; /* slate-500 - Muted text */
+  --border-color: rgba(148, 163, 184, 0.3); /* slate-400 with opacity */
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--text-primary);
+    padding-top: 70px; /* Space for fixed navbar */
+    overflow-x: hidden; /* Prevent horizontal scrollbar */
+    line-height: 1.6;
+    position: relative;
+}
+
+/* --- Theme Toggle Button --- */
+/* Desktop theme toggle (visible on larger screens) */
+.theme-toggle-desktop {
+  background-color: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 10px;
+  flex-shrink: 0;
+  z-index: 1001;
+}
+
+.theme-toggle-desktop:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Mobile theme toggle (visible in collapsed menu) */
+.theme-toggle-mobile {
+  background-color: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle-mobile:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.theme-toggle-mobile span {
+  margin-left: 5px;
+}
+
+/* Show/hide icons based on theme */
+.theme-icon-dark {
+  display: block;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.theme-icon-light {
+  display: none;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+:root.light .theme-icon-dark {
+  display: none;
+}
+
+:root.light .theme-icon-light {
+  display: block;
+}
+
+/* Hide mobile theme toggle on desktop */
+.theme-toggle-mobile-item {
+  display: none;
+}
+
+/* Responsive behavior - using Bootstrap classes instead of media queries */
+@media (max-width: 991.98px) { /* Bootstrap lg breakpoint - 1 */
+  /* Show mobile theme toggle in mobile menu */
+  .theme-toggle-mobile-item {
+    display: block !important;
+  }
+}
+
+/* --- End Theme Toggle Button --- */
+
+/* --- Magenta Orb Grid Background --- */
+#background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Behind all content */
+    background: var(--dark-bg);
+    background-image:
+        linear-gradient(to right, rgba(71,85,105,0.15) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(71,85,105,0.15) 1px, transparent 1px),
+        radial-gradient(circle at 50% 60%, rgba(236,72,153,0.15) 0%, rgba(168,85,247,0.05) 40%, transparent 70%); /* Magenta orb included */
+    background-size: 40px 40px, 40px 40px, 100% 100%;
+}
+
+/* Light theme background */
+:root.light #background-container {
+    background: var(--dark-bg);
+    background-image:
+        linear-gradient(to right, rgba(148, 163, 184, 0.2) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148, 163, 184, 0.2) 1px, transparent 1px),
+        radial-gradient(circle at 50% 60%, rgba(236,72,153,0.1) 0%, rgba(168,85,247,0.05) 40%, transparent 70%);
+    background-size: 40px 40px, 40px 40px, 100% 100%;
+}
+
+
+/* --- Global Styles --- */
+.section {
+    padding: 80px 0;
+    position: relative;
+    z-index: 1; /* Content above background */
+}
+.section-title {
+    position: relative;
+    margin-bottom: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: inline-block; /* So the underline only spans the title width */
+    font-size: 1.75rem;
+}
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: var(--accent-color); /* Magenta underline */
+    border-radius: 2px;
+}
+.text-accent {
+    color: var(--accent-color); /* Magenta text */
+}
+.btn-custom {
+    background-color: var(--accent-color); /* Magenta button */
+    border-color: var(--accent-color); /* Magenta border */
+    color: white;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    padding: 0.5rem 1.25rem; /* Larger button */
+    border-radius: 12px; /* Rounded button */
+    font-size: 1.1rem;
+}
+.btn-custom:hover {
+    background-color: #db2777; /* magenta-600 - Darker magenta on hover */
+    border-color: #db2777; /* magenta-600 - Darker magenta border on hover */
+    transform: translateY(-2px); /* Lift on hover */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* --- Navbar --- */
+#navbar {
+    background-color: rgba(30, 41, 59, 0.98); /* card-bg with high opacity */
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000; /* Above content and background */
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Light theme navbar */
+:root.light #navbar {
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.navbar-brand, .nav-link {
+    color: var(--text-primary) !important;
+    transition: color 0.2s ease;
+    font-weight: 500;
+}
+.nav-link:hover, .nav-link.active {
+    color: var(--accent-color) !important; /* Magenta on hover/active */
+}
+.navbar-toggler {
+    border-color: var(--border-color);
+    padding: 0.5rem 0.75rem; /* Consistent padding */
+    border-radius: 8px;
+    margin-right: 1rem; /* Space from the right edge */
+}
+.navbar-toggler-icon {
+    background-image: url("image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28248, 250, 252, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Light theme navbar toggler icon */
+:root.light .navbar-toggler-icon {
+    background-image: url("image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2815, 23, 42, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar-collapse {
+     /* Improve visibility and contrast for mobile menu */
+     background-color: rgba(30, 41, 59, 0.95); /* Slightly more opaque */
+     margin-top: 0.5rem; /* Space below navbar brand/toggler */
+     padding: 1rem 0; /* Padding inside mobile menu */
+     border-top: none; /* Remove top border */
+     z-index: 1000; /* Ensure menu is above content but below toggler */
+}
+
+/* Light theme navbar collapse */
+:root.light .navbar-collapse {
+     background-color: rgba(255, 255, 255, 0.95);
+}
+/* --- Responsive Navbar --- */
+@media (max-width: 991.98px) { /* Bootstrap lg breakpoint - 1 */
+    .navbar-nav {
+        align-items: center; /* Center items in mobile menu */
+        gap: 1rem; /* Increase gap on mobile */
+        padding: 1rem 0; /* Add padding inside mobile menu */
+    }
+    .nav-link {
+        width: 80%; /* Make links wider on mobile */
+        text-align: center; /* Center text */
+        margin: 0.25rem auto; /* Center links with margin */
+        padding: 0.75rem 1.5rem !important; /* Larger tap targets */
+        border-radius: 12px; /* Rounded links */
+    }
+}
+/* --- End Navbar --- */
+
+
+/* --- Hero Section --- */
+.hero {
+    position: relative;
+    padding: 70px 0 100px; /* Increased padding */
+    text-align: center;
+    overflow: hidden;
+}
+.hero-content {
+    position: relative;
+    z-index: 2; /* Above background effects */
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+.hero-profile-img {
+    max-width: 350px; /* Slightly larger */
+    height: auto;
+    margin: 0 auto 25px; /* More space below */
+    display: block;
+    margin-bottom: -100px;
+}
+.hero h1.display-3 {
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+}
+.hero .lead {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem; /* More space */
+}
+.hero p.summary {
+    max-width: 700px;
+    margin: 0 auto 2rem; /* More space */
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    line-height: 1.7; /* Improve readability */
+}
+
+/* --- Cards & Backgrounds --- */
+.bg-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.bg-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    /* Subtle magenta border on hover */
+    border-color: rgba(236, 72, 153, 0.3);
+}
+
+/* Light theme card hover */
+:root.light .bg-card:hover {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* --- Classmorphism Skill Cards --- */
+.classmorphism-card {
+    background-color: rgba(30, 41, 59, 0.5); /* Semi-transparent card-bg */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px; /* Rounded corners */
+    padding: 20px 10px; /* Adjust padding */
+    text-align: center;
+    transition: all 0.3s ease;
+    height: 100%; /* Ensure consistent height in grid */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* Glassmorphism effect - blur the background behind the element */
+    /* Fallback for browsers that don't support backdrop-filter */
+    background-color: rgba(30, 41, 59, 0.6);
+    /* Standard syntax */
+    backdrop-filter: blur(12px);
+    /* Safari support */
+    -webkit-backdrop-filter: blur(12px);
+    /* Optional: subtle inner shadow for depth */
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05), 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Light theme classmorphism card */
+:root.light .classmorphism-card {
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.05), 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.classmorphism-card:hover {
+    transform: translateY(-3px);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1), 0 6px 12px rgba(0, 0, 0, 0.15);
+    /* Subtle magenta border on hover */
+    border-color: rgba(236, 72, 153, 0.2);
+}
+
+/* Light theme classmorphism card hover */
+:root.light .classmorphism-card:hover {
+    box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 6px 12px rgba(0, 0, 0, 0.1);
+    border-color: rgba(236, 72, 153, 0.3);
+}
+
+/* --- Skills Section Specific --- */
+#skills .skill-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem; /* Reduced margin */
+    color: var(--accent-color); /* Magenta icons */
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+#skills .skill-item:hover .skill-icon {
+    transform: scale(1.15); /* Slightly less aggressive scale */
+    color: #c4b5fd; /* Lighter accent on hover */
+}
+#skills .skill-name {
+    font-weight: 500;
+    font-size: 0.9rem; /* Slightly smaller font */
+    color: var(--text-secondary);
+}
+
+
+ /* --- Experience & Education Timeline Base Styles --- */
+.timeline, .education-timeline {
+    position: relative;
+    padding: 20px 0;
+}
+/* Vertical line */
+.timeline::before, .education-timeline::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    /* Experience uses magenta->blue, Education uses magenta->blue */
+    background: linear-gradient(to bottom, var(--accent-color), var(--primary-color));
+    top: 0;
+    bottom: 0;
+    left: 20px; /* Position on the left, for mobile */
+    margin-left: 0;
+    border-radius: 1px;
+}
+.timeline-item, .education-item {
+    position: relative;
+    margin-bottom: 50px; /* Consistent spacing */
+    width: 100%;
+    padding-left: 50px; /* Space for marker and line on mobile */
+}
+.timeline-marker, .education-marker {
+    position: absolute;
+    width: 20px; /* Slightly larger marker */
+    height: 20px;
+    background-color: var(--accent-color); /* Magenta marker */
+    border: 3px solid var(--dark-bg);
+    border-radius: 50%;
+    top: 20px;
+    left: 12px; /* Align with timeline line */
+    z-index: 1;
+    box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.5); /* Magenta shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Light theme marker */
+:root.light .timeline-marker,
+:root.light .education-marker {
+    border: 3px solid var(--dark-bg);
+    box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.5);
+}
+
+.timeline-item:hover .timeline-marker,
+.education-item:hover .education-marker {
+     transform: scale(1.2);
+     box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.3);
+}
+.timeline-content, .education-content {
+    padding: 25px; /* Adjusted padding */
+    position: relative;
+    border-radius: 0.5rem;
+    background-color: var(--card-bg); /* Use card background */
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.timeline-content:hover, .education-content:hover {
+     transform: translateY(-3px);
+     box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+     /* Subtle magenta border on hover */
+     border-color: rgba(236, 72, 153, 0.3);
+}
+
+/* Light theme timeline hover */
+:root.light .timeline-content:hover,
+:root.light .education-content:hover {
+     box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+.timeline-date, .education-date {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent-color); /* Magenta date */
+    margin-bottom: 0.5rem;
+    display: block;
+}
+.timeline h4, .education h5 { /* Role/Degree */
+     margin-top: 0.25rem;
+     margin-bottom: 0.25rem;
+     font-size: 1.25rem; /* Slightly smaller */
+     color: var(--text-primary);
+     font-weight: 600;
+}
+.timeline h5, .education p { /* Company/Institution */
+    margin-top: 0.25rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+.timeline-content > p:first-of-type { /* First paragraph is usually the role description */
+     font-weight: 500;
+     color: var(--text-secondary);
+     margin-bottom: 1rem; /* Add space before features list */
+}
+.tech-stack-sm {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--border-color);
+}
+.projects-container h2 {
+    font-size: 1.4rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+.projects-container h3 {
+    font-size: 1.2rem;
+    margin-top: 1.2rem;
+    margin-bottom: 0.8rem;
+    color: var(--text-secondary);
+}
+.projects-container h4 {
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+}
+.projects-container ul,
+.projects-container ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+.projects-container li {
+    margin-bottom: 0.5rem;
+    color: var(--text-muted);
+}
+.projects-container p {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+.project-item {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: rgba(30, 41, 59, 0.7);
+    border: 1px solid var(--border-color);
+}
+.project-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+.project-description {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+.project-tech-stack {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 0.5rem;
+}
+.project-tech-stack strong {
+    color: var(--text-secondary);
+}
+
+/* Light theme project item */
+:root.light .project-item {
+    background-color: rgba(241, 245, 249, 0.7);
+}
+.project-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.project-list li {
+    margin-bottom: 15px;
+    padding-left: 20px;
+    position: relative;
+}
+.project-list li::before {
+    content: "▹";
+    position: absolute;
+    left: 0;
+    color: var(--accent-color); /* Magenta bullet */
+    font-weight: bold;
+}
+.project-list li strong {
+     color: var(--text-secondary);
+}
+/* --- End Base Timeline Styles --- */
+
+/* --- Desktop Timeline Styles (MD and up) --- */
+@media (min-width: 768px) {
+    /* Alternate sides for Experience only on desktop */
+    .timeline::before {
+        left: 50%;
+        margin-left: -1px; /* Center the line */
+    }
+    .timeline-item {
+        padding-left: 0; /* Reset mobile padding */
+        padding-right: 0;
+    }
+    .timeline-item:nth-child(odd) {
+        padding-right: calc(50% + 30px);
+        text-align: right;
+    }
+    .timeline-item:nth-child(even) {
+        padding-left: calc(50% + 30px);
+        text-align: left;
+    }
+    .timeline-marker {
+        left: 50%;
+        margin-left: -10px; /* Half of marker width */
+    }
+    /* Adjust content margins for desktop spacing */
+    .timeline-item:nth-child(odd) .timeline-content {
+        margin-right: 15px;
+    }
+    .timeline-item:nth-child(even) .timeline-content {
+        margin-left: 15px;
+    }
+
+    /* Education timeline stays left-aligned even on desktop */
+    .education-timeline::before {
+         left: 20px; /* Keep line on the left */
+    }
+    .education-item {
+         padding-left: 50px; /* Keep padding for marker space */
+    }
+    .education-marker {
+         left: 12px; /* Keep marker aligned */
+    }
+    .education-content {
+         margin-left: 0; /* No side margin needed */
+    }
+}
+/* --- End Desktop Timeline Styles --- */
+
+/* --- Mobile Timeline Styles (SM and down) --- */
+@media (min-width: 510px) {
+    #name-bg {
+        background-size: 100% !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .timeline::before, .education-timeline::before {
+        left: 31px; /* Adjust for smaller screens */
+    }
+    .timeline-item, .education-item {
+        width: 100%;
+        padding-left: 70px !important; /* Override desktop padding */
+        padding-right: 0 !important;
+        text-align: left !important; /* Force left alignment */
+        margin-bottom: 40px;
+    }
+    .timeline-marker, .education-marker {
+        left: 22px; /* Align with new timeline position */
+        margin-left: 0;
+    }
+    .timeline-item:nth-child(odd) .timeline-content::after,
+    .timeline-item:nth-child(even) .timeline-content::after,
+    .education-item:nth-child(odd) .education-content::after,
+    .education-item:nth-child(even) .education-content::after {
+        left: -15px;
+        right: auto;
+        border: none;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        border-right: 1px solid rgba(255,255,255,0.1);
+        transform: rotate(45deg);
+    }
+    /* Adjust timeline connector for mobile */
+    .timeline-item:nth-child(odd) .timeline-content::after,
+    .timeline-item:nth-child(even) .timeline-content::after {
+        left: -15px;
+        right: auto;
+        border: none;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        border-right: 1px solid rgba(255,255,255,0.1);
+        transform: rotate(45deg);
+    }
+    /* Adjust skill card padding on mobile */
+    .classmorphism-card {
+        padding: 15px 5px;
+    }
+    #skills .skill-icon {
+        font-size: 1.7rem;
+    }
+    #skills .skill-name {
+        font-size: 0.85rem;
+    }
+    .contact-link {
+        font-size: 1rem;
+    }
+    /* Adjust education timeline for mobile */
+    .education-timeline::before {
+         left: 15px; /* Adjust for smaller screens */
+    }
+    .education-item {
+         padding-left: 40px; /* Adjust padding */
+    }
+    .education-marker {
+         left: 7px; /* Align with new timeline position */
+    }
+    .education-content {
+         margin-left: 0; /* No side margin needed */
+    }
+    .education-item:nth-child(odd) .education-content::after,
+    .education-item:nth-child(even) .education-content::after {
+        left: -15px;
+        right: auto;
+        border: none;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        border-right: 1px solid rgba(255,255,255,0.1);
+        transform: rotate(45deg);
+    }
+    .contact-link {
+        font-size: 1rem;
+    }
+}
+/* --- End Mobile Timeline Styles --- */
+
+
+/* --- Contact Section --- */
+#contact {
+    background-color: rgba(30, 41, 59, 0.8); /* Slightly lighter card bg with opacity */
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Light theme contact section */
+:root.light #contact {
+    background-color: rgba(241, 245, 249, 0.8);
+}
+.contact-icon {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: var(--accent-color); /* Magenta icon */
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+.contact-method:hover .contact-icon {
+    transform: translateY(-5px);
+    color: #c4b5fd; /* Lighter accent on hover */
+}
+.contact-link {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+.contact-link:hover {
+    color: var(--accent-color); /* Magenta link on hover */
+    text-decoration: underline;
+}
+.contact-method h5 {
+     color: var(--text-secondary);
+     font-weight: 500;
+}
+
+/* --- Footer --- */
+.footer {
+    background-color: rgba(30, 41, 59, 0.98); /* card-bg with higher opacity */
+    padding: 20px 0;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    position: relative;
+    z-index: 2;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Light theme footer */
+:root.light .footer {
+    background-color: rgba(255, 255, 255, 0.95);
+    color: var(--text-muted);
+}
+
+/* --- Animations --- */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.fade-in-up.appear {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Responsive --- */
+@media (max-width: 767px) {
+    .hero {
+        padding: 50px 0 80px; /* Adjusted padding for mobile */
+    }
+    .hero h1.display-3 {
+        font-size: 2rem;
+    }
+    .hero .lead {
+        font-size: 1.2rem;
+    }
+    .hero p.summary {
+        font-size: 1rem;
+    }
+    .hero-profile-img {
+         max-width: 280px; /* Smaller image on mobile */
+    }
+    .section {
+        padding: 60px 0;
+    }
+    .section-title {
+        font-size: 1.5rem;
+    }
+    .classmorphism-card {
+        padding: 15px 5px;
+    }
+    #skills .skill-icon {
+        font-size: 1.7rem;
+    }
+    #skills .skill-name {
+        font-size: 0.85rem;
+    }
+    .contact-link {
+        font-size: 1rem;
+    }
+    /* Adjust timeline connector for mobile */
+    .timeline-item:nth-child(odd) .timeline-content::after,
+    .timeline-item:nth-child(even) .timeline-content::after {
+        left: -15px;
+        right: auto;
+        border: none;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        border-right: 1px solid rgba(255,255,255,0.1);
+        transform: rotate(45deg);
+    }
+    /* Adjust skill card padding on mobile */
+    .classmorphism-card {
+        padding: 15px 5px;
+    }
+    #skills .skill-icon {
+        font-size: 1.7rem;
+    }
+    #skills .skill-name {
+        font-size: 0.85rem;
+    }
+    .contact-link {
+        font-size: 1rem;
+    }
+    /* Adjust education timeline for mobile */
+    .education-timeline::before {
+         left: 15px; /* Adjust for smaller screens */
+    }
+    .education-item {
+         padding-left: 40px; /* Adjust padding */
+    }
+    .education-marker {
+         left: 7px; /* Align with new timeline position */
+    }
+    .education-content {
+         margin-left: 0; /* No side margin needed */
+    }
+    .education-item:nth-child(odd) .education-content::after,
+    .education-item:nth-child(even) .education-content::after {
+        left: -15px;
+        right: auto;
+        border: none;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        border-right: 1px solid rgba(255,255,255,0.1);
+        transform: rotate(45deg);
+    }
+    .contact-link {
+        font-size: 1rem;
+    }
+}
+
+/* --- Name Background --- */
+.name-with-bg {
+  position: relative;
+  display: inline-block;
+  padding: 40px;
+  background-image: url('/images/namebg.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 1;
+  margin: 0 auto 20px auto;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+  background-size: 510px; /* Mobile default */
+  width: 100%;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .name-with-bg {
+    background-size: 650px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 992px) {
+  .name-with-bg {
+    background-size: 760px;
+  }
+}
+
+/* --- End Name Background --- */
+
+
+/* --- Animations --- */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.fade-in-up.appear {
+    opacity: 1;
+    transform: translateY(0);
+}

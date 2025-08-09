@@ -1,0 +1,10 @@
+---
+import siteData from '../data/site.json';
+---
+
+<section id="about" class="section" itemscope itemtype="https://schema.org/Person">
+  <div class="container">
+    <h2 class="section-title">{siteData.about.title}</h2>
+    <p class="lead mb-4 fade-in-up" itemprop="description">{siteData.about.content}</p>
+  </div>
+</section>
