@@ -3,6 +3,7 @@
 ---
 import NavbarIcon from './NavbarIcon.astro'; // Adjust path if needed
 ---
+
 <nav id="navbar" class="navbar navbar-expand-lg navbar-dark">
   <div class="container">
     <a class="navbar-brand fw-bold" href="#home">
@@ -18,10 +19,18 @@ import NavbarIcon from './NavbarIcon.astro'; // Adjust path if needed
         <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
         <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        <!-- Theme Toggle Button for Mobile -->
+        <li class="nav-item">
+          <button id="theme-toggle-mobile" class="btn theme-toggle-desktop nav-link w-100 text-start" aria-label="Toggle theme">
+            <i class="bi bi-moon-fill theme-icon-dark"></i>
+            <i class="bi bi-sun-fill theme-icon-light"></i>
+          </button>
+        </li>
       </ul>
     </div>
   </div>
 </nav>
+
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelectorAll('.nav-link');

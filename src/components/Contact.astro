@@ -1,0 +1,17 @@
+---
+import siteData from '../data/site.json';
+---
+
+<section id="contact" class="section">
+  <div class="container">
+    <h2 class="section-title">Get In Touch</h2>
+    <div class="row g-4 text-center justify-content-center">
+      {siteData.contact.methods.map((method) => (
+        <div class="col-md-4 contact-method fade-in-up">
+          <h5>{method.type}</h5>
+          <a href={method.link} class="contact-link" itemprop="sameAs">{method.value}</a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

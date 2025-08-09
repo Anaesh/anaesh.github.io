@@ -1,14 +1,28 @@
 /* styles/global.css */
 
+/* --- Theme Variables --- */
 :root {
-    --primary-color: #3b82f6; /* A brighter blue */
-    --accent-color: #ec4899; /* violet-500 / purple accent */
-    --dark-bg: #020617; /* Very dark background */
-    --card-bg: #1e293b; /* slate-800 */
-    --text-primary: #f8fafc; /* slate-50 - Main text */
-    --text-secondary: #e2e8f0; /* slate-200 - Secondary text */
-    --text-muted: #94a3b8; /* slate-400 - Muted text */
-    --border-color: rgba(148, 163, 184, 0.2); /* slate-400 with opacity */
+  /* Dark theme (default) */
+  --primary-color: #3b82f6; /* A brighter blue */
+  --accent-color: #ec4899; /* violet-500 / purple accent */
+  --dark-bg: #020617; /* Very dark background */
+  --card-bg: #1e293b; /* slate-800 */
+  --text-primary: #f8fafc; /* slate-50 - Main text */
+  --text-secondary: #e2e8f0; /* slate-200 - Secondary text */
+  --text-muted: #94a3b8; /* slate-400 - Muted text */
+  --border-color: rgba(148, 163, 184, 0.2); /* slate-400 with opacity */
+}
+
+/* Light theme */
+:root.light {
+  --primary-color: #3b82f6; /* A brighter blue */
+  --accent-color: #ec4899; /* violet-500 / purple accent */
+  --dark-bg: #f1f5f9; /* slate-100 - Light background */
+  --card-bg: #ffffff; /* white cards */
+  --text-primary: #0f172a; /* slate-900 - Main text */
+  --text-secondary: #334155; /* slate-700 - Secondary text */
+  --text-muted: #64748b; /* slate-500 - Muted text */
+  --border-color: rgba(148, 163, 184, 0.3); /* slate-400 with opacity */
 }
 
 body {
@@ -21,6 +35,91 @@ body {
     position: relative;
 }
 
+/* --- Theme Toggle Button --- */
+/* Desktop theme toggle (visible on larger screens) */
+.theme-toggle-desktop {
+  background-color: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 10px;
+  flex-shrink: 0;
+  z-index: 1001;
+}
+
+.theme-toggle-desktop:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Mobile theme toggle (visible in collapsed menu) */
+.theme-toggle-mobile {
+  background-color: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle-mobile:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.theme-toggle-mobile span {
+  margin-left: 5px;
+}
+
+/* Show/hide icons based on theme */
+.theme-icon-dark {
+  display: block;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.theme-icon-light {
+  display: none;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+:root.light .theme-icon-dark {
+  display: none;
+}
+
+:root.light .theme-icon-light {
+  display: block;
+}
+
+/* Hide mobile theme toggle on desktop */
+.theme-toggle-mobile-item {
+  display: none;
+}
+
+/* Responsive behavior - using Bootstrap classes instead of media queries */
+@media (max-width: 991.98px) { /* Bootstrap lg breakpoint - 1 */
+  /* Show mobile theme toggle in mobile menu */
+  .theme-toggle-mobile-item {
+    display: block !important;
+  }
+}
+
+/* --- End Theme Toggle Button --- */
+
 /* --- Magenta Orb Grid Background --- */
 #background-container {
     position: fixed;
@@ -29,14 +128,23 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1; /* Behind all content */
-    background: #020617;
+    background: var(--dark-bg);
     background-image:
         linear-gradient(to right, rgba(71,85,105,0.15) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(71,85,105,0.15) 1px, transparent 1px),
         radial-gradient(circle at 50% 60%, rgba(236,72,153,0.15) 0%, rgba(168,85,247,0.05) 40%, transparent 70%); /* Magenta orb included */
     background-size: 40px 40px, 40px 40px, 100% 100%;
 }
-/* --- End Magenta Orb Grid Background --- */
+
+/* Light theme background */
+:root.light #background-container {
+    background: var(--dark-bg);
+    background-image:
+        linear-gradient(to right, rgba(148, 163, 184, 0.2) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148, 163, 184, 0.2) 1px, transparent 1px),
+        radial-gradient(circle at 50% 60%, rgba(236,72,153,0.1) 0%, rgba(168,85,247,0.05) 40%, transparent 70%);
+    background-size: 40px 40px, 40px 40px, 100% 100%;
+}
 
 
 /* --- Global Styles --- */
@@ -94,6 +202,14 @@ body {
     z-index: 1000; /* Above content and background */
     border-bottom: 1px solid var(--border-color);
 }
+
+/* Light theme navbar */
+:root.light #navbar {
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-bottom: 1px solid var(--border-color);
+}
+
 .navbar-brand, .nav-link {
     color: var(--text-primary) !important;
     transition: color 0.2s ease;
@@ -111,6 +227,12 @@ body {
 .navbar-toggler-icon {
     background-image: url("image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28248, 250, 252, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
+
+/* Light theme navbar toggler icon */
+:root.light .navbar-toggler-icon {
+    background-image: url("image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2815, 23, 42, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
 .navbar-collapse {
      /* Improve visibility and contrast for mobile menu */
      background-color: rgba(30, 41, 59, 0.95); /* Slightly more opaque */
@@ -118,6 +240,11 @@ body {
      padding: 1rem 0; /* Padding inside mobile menu */
      border-top: none; /* Remove top border */
      z-index: 1000; /* Ensure menu is above content but below toggler */
+}
+
+/* Light theme navbar collapse */
+:root.light .navbar-collapse {
+     background-color: rgba(255, 255, 255, 0.95);
 }
 /* --- Responsive Navbar --- */
 @media (max-width: 991.98px) { /* Bootstrap lg breakpoint - 1 */
@@ -143,7 +270,6 @@ body {
     padding: 70px 0 100px; /* Increased padding */
     text-align: center;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow for separation */
 }
 .hero-content {
     position: relative;
@@ -192,6 +318,11 @@ body {
     border-color: rgba(236, 72, 153, 0.3);
 }
 
+/* Light theme card hover */
+:root.light .bg-card:hover {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
 /* --- Classmorphism Skill Cards --- */
 .classmorphism-card {
     background-color: rgba(30, 41, 59, 0.5); /* Semi-transparent card-bg */
@@ -210,15 +341,30 @@ body {
     background-color: rgba(30, 41, 59, 0.6);
     /* Standard syntax */
     backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px); /* Safari support */
+    /* Safari support */
+    -webkit-backdrop-filter: blur(12px);
     /* Optional: subtle inner shadow for depth */
     box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05), 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+/* Light theme classmorphism card */
+:root.light .classmorphism-card {
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.05), 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
 .classmorphism-card:hover {
     transform: translateY(-3px);
     box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1), 0 6px 12px rgba(0, 0, 0, 0.15);
     /* Subtle magenta border on hover */
     border-color: rgba(236, 72, 153, 0.2);
+}
+
+/* Light theme classmorphism card hover */
+:root.light .classmorphism-card:hover {
+    box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 6px 12px rgba(0, 0, 0, 0.1);
+    border-color: rgba(236, 72, 153, 0.3);
 }
 
 /* --- Skills Section Specific --- */
@@ -276,6 +422,14 @@ body {
     box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.5); /* Magenta shadow */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+/* Light theme marker */
+:root.light .timeline-marker,
+:root.light .education-marker {
+    border: 3px solid var(--dark-bg);
+    box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.5);
+}
+
 .timeline-item:hover .timeline-marker,
 .education-item:hover .education-marker {
      transform: scale(1.2);
@@ -294,6 +448,12 @@ body {
      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
      /* Subtle magenta border on hover */
      border-color: rgba(236, 72, 153, 0.3);
+}
+
+/* Light theme timeline hover */
+:root.light .timeline-content:hover,
+:root.light .education-content:hover {
+     box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 .timeline-date, .education-date {
     font-size: 0.9rem;
@@ -328,6 +488,71 @@ body {
     margin-top: 0.75rem;
     padding-top: 0.75rem;
     border-top: 1px dashed var(--border-color);
+}
+.projects-container h2 {
+    font-size: 1.4rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+.projects-container h3 {
+    font-size: 1.2rem;
+    margin-top: 1.2rem;
+    margin-bottom: 0.8rem;
+    color: var(--text-secondary);
+}
+.projects-container h4 {
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+}
+.projects-container ul,
+.projects-container ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+.projects-container li {
+    margin-bottom: 0.5rem;
+    color: var(--text-muted);
+}
+.projects-container p {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+.project-item {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: rgba(30, 41, 59, 0.7);
+    border: 1px solid var(--border-color);
+}
+.project-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+.project-description {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+.project-tech-stack {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 0.5rem;
+}
+.project-tech-stack strong {
+    color: var(--text-secondary);
+}
+
+/* Light theme project item */
+:root.light .project-item {
+    background-color: rgba(241, 245, 249, 0.7);
 }
 .project-list {
     list-style-type: none;
@@ -490,6 +715,11 @@ body {
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
 }
+
+/* Light theme contact section */
+:root.light #contact {
+    background-color: rgba(241, 245, 249, 0.8);
+}
 .contact-icon {
     font-size: 1.75rem;
     margin-bottom: 1rem;
@@ -526,6 +756,12 @@ body {
     position: relative;
     z-index: 2;
     border-top: 1px solid var(--border-color);
+}
+
+/* Light theme footer */
+:root.light .footer {
+    background-color: rgba(255, 255, 255, 0.95);
+    color: var(--text-muted);
 }
 
 /* --- Animations --- */
@@ -625,15 +861,46 @@ body {
 }
 
 /* --- Name Background --- */
-#name-bg {
+.name-with-bg {
   position: relative;
-  background-image: url('/images/namebg.svg');
-  background-size: 150%;
-  background-position: center;
-  width: 100%;
-  height: auto;
   display: inline-block;
-  padding: 55px;
-  background-position-x: 60%;
+  padding: 40px;
+  background-image: url('/images/namebg.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 1;
+  margin: 0 auto 20px auto;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+  background-size: 510px; /* Mobile default */
+  width: 100%;
+}
 
+/* Tablet */
+@media (min-width: 768px) {
+  .name-with-bg {
+    background-size: 650px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 992px) {
+  .name-with-bg {
+    background-size: 760px;
+  }
+}
+
+/* --- End Name Background --- */
+
+
+/* --- Animations --- */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.fade-in-up.appear {
+    opacity: 1;
+    transform: translateY(0);
 }

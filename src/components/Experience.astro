@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+
+// Get all experience entries and sort by date
+const experienceEntries = await getCollection('experience');
+const sortedExperience = experienceEntries.sort((a, b) => {
+  // Simple sorting by comparing the start years
+  const yearA = parseInt(a.data.date.split(' ')[0]);
+  const yearB = parseInt(b.data.date.split(' ')[0]);
+  return yearB - yearA; // Most recent first
+});
+---
+
+<section id="experience" class="section">
+  <div class="container">
+    <h2 class="section-title">Work Experience</h2>
+    <div class="timeline">
+      {sortedExperience.map((entry) => (
+        <div class="timeline-item fade-in-up" itemscope itemtype="https://schema.org/OrganizationRole">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content bg-card">
+            <span class="timeline-date" itemprop="startDate">{entry.data.date}</span>
+            <h4 class="text-accent" itemprop="roleName">{entry.data.role}</h4>
+            <h5 itemprop="name">{entry.data.company}</h5>
+            <p itemprop="description">{entry.data.description}</p>
+            {
+              entry.data.techStack && (
+                <div class="tech-stack-container">
+                  <span class="tech-stack-sm">Technologies: {entry.data.techStack.join(', ')}</span>
+                </div>
+              )
+            }
+            {
+              entry.body && entry.body.trim() && (
+                <div class="projects-container mt-3" set:html={entry.body} />
+              )
+            }
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -6,30 +6,90 @@ const { title } = Astro.props;
 const siteTitle = "Anaesh K N - Software Engineer";
 const defaultDescription = "Anaesh K N is a skilled .NET Software Engineer and Full-Stack Developer based in Chennai, India. Specializing in C#, .NET, Azure, AWS, and modern web technologies. View his portfolio, skills, and experience.";
 const defaultKeywords = "Anaesh K N, Software Engineer, .NET Developer, Full Stack Developer, Chennai, India, C#, .NET, Azure, AWS, React, SQL Server";
+const siteUrl = "https://anaesh.github.io";
+const siteImage = "/images/profile.jpg";
 
 // These props can be overridden by pages
 const pageTitle = title ? `${title} - ${siteTitle}` : siteTitle;
 const pageDescription = Astro.props.description || defaultDescription;
 const pageKeywords = Astro.props.keywords || defaultKeywords;
+const pageUrl = Astro.props.url || siteUrl;
+const pageImage = Astro.props.image || siteImage;
 ---
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={pageDescription} />
     <meta name="keywords" content={pageKeywords} />
     <meta name="author" content="Anaesh K N" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#ec4899" />
     
     <!-- Open Graph / Social Media Meta Tags -->
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://anaesh.github.io/" /> <!-- Update with your actual URL -->
-    <meta property="og:image" content="/images/profile.jpg" /> <!-- Update with your actual image path -->
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:image" content={siteUrl + pageImage} />
+    <meta property="og:image:alt" content="Anaesh K N - Software Engineer" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content={siteTitle} />
     
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={siteUrl + pageImage} />
+    <meta name="twitter:image:alt" content="Anaesh K N - Software Engineer" />
+    <meta name="twitter:site" content="@anaeshkn" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={pageUrl} />
+    
+    <!-- Favicon and Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="canonical" href="https://anaesh.github.io/" /> <!-- Update with your actual URL -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/profile.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/profile.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/profile.png" />
+    
+    <!-- Structured Data - JSON-LD -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Anaesh K N",
+        "url": "https://anaesh.github.io",
+        "image": "https://anaesh.github.io/images/profile.jpg",
+        "jobTitle": "Software Engineer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Logitech"
+        },
+        "alumniOf": {
+          "@type": "EducationalOrganization",
+          "name": "Sri Ramakrishna Institute of Technology"
+        },
+        "homeLocation": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Chennai",
+            "addressCountry": "India"
+          }
+        },
+        "description": "Software Engineer specializing in .NET, C#, Azure, AWS, and modern web development technologies.",
+        "sameAs": [
+          "https://www.linkedin.com/in/kn-anaesh-19a405132/",
+          "https://github.com/Anaesh"
+        ]
+      }
+    </script>
+    
     <title>{pageTitle}</title>
     
     <!-- Bootstrap CSS -->

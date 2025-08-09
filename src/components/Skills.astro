@@ -1,0 +1,57 @@
+---
+import { getEntry } from 'astro:content';
+
+// Get the skills entry
+const skillsEntry = await getEntry('skills', 'technical');
+const skillsData = skillsEntry?.data || { categories: [] };
+
+// Mapping of skills to devicon classes
+const skillIcons: Record<string, string> = {
+  "C#": "devicon-csharp-plain",
+  "SQL Server": "devicon-microsoftsqlserver-plain",
+  "openCypher": "devicon-neo4j-plain",
+  "Ajax/jQuery": "devicon-jquery-plain",
+  "JavaScript": "devicon-javascript-plain",
+  "HTML/CSS": "devicon-html5-plain",
+  "PHP": "devicon-php-plain",
+  "Python": "devicon-python-plain",
+  ".NET": "devicon-dot-net-plain",
+  "Laravel": "devicon-laravel-plain",
+  "React": "devicon-react-original",
+  "Github": "devicon-github-plain",
+  "Azure DevOps": "devicon-azure-plain",
+  "Azure SB/EG": "devicon-azure-plain",
+  "Azure Functions": "devicon-azure-plain",
+  "AWS SQS/Lambda": "devicon-amazonwebservices-plain",
+  "Neo4j": "devicon-neo4j-plain",
+  "AWS Neptune": "devicon-amazonwebservices-plain",
+  "Web APIs (RESTful)": "devicon-apache-plain",
+  "VB.NET": "devicon-dot-net-plain",
+  "WebForms": "devicon-dot-net-plain",
+  "MS SQL": "devicon-microsoftsqlserver-plain",
+  "ASPX": "devicon-dot-net-plain"
+};
+---
+
+<section id="skills" class="section">
+  <div class="container">
+    <h2 class="section-title">Technical Skills</h2>
+    <div class="row">
+      {skillsData.categories.map((category) => (
+        <div class="col-md-6 mb-4">
+          <h4 class="mb-3 text-accent">{category.name}</h4>
+          <div class="row g-2">
+            {category.skills.map((skill) => (
+              <div class="col-4 col-sm-3 col-md-4 skill-item fade-in-up">
+                <div class="classmorphism-card" itemprop="knowsAbout">
+                  <i class={`skill-icon devicon ${skillIcons[skill] || 'devicon-codepen-plain'}`}></i>
+                  <div class="skill-name">{skill}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+---
+import siteData from '../data/site.json';
+---
+
+<section id="home" class="hero">
+  <div class="container hero-content">
+    <img src="/images/profile.png" alt="Anaesh K N - Software Engineer" class="hero-profile-img fade-in-up" width="350" height="350" loading="eager" />
+    <div>
+      <h1 class="display-3 fade-in-up" itemprop="name">{siteData.home.title}</h1>
+      <p class="lead fade-in-up" style="animation-delay: 0.2s;" itemprop="jobTitle">{siteData.home.subtitle}</p>
+    </div>
+    <p class="summary fade-in-up" style="animation-delay: 0.4s;" itemprop="description">{siteData.home.description}</p>
+    <a href="#experience" class="btn btn-custom btn-lg fade-in-up" style="animation-delay: 0.6s;">{siteData.home.buttonText}</a>
+  </div>
+</section>
